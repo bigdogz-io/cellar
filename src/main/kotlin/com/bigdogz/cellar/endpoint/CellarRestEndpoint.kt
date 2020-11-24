@@ -26,13 +26,13 @@ class CellarRestEndpoint(private var commandHandler: CellarCommandHandler, priva
     }
 
     @PostMapping("/product")
-    fun createProduct(@RequestBody createProductCommand: CreateProductCommand): String {
+    fun createProduct(@RequestBody createProductCommand: CreateProduct): String {
         return commandHandler.createProduct(createProductCommand)
     }
 
     @PostMapping("/item")
-    fun createCellarItem(@RequestBody createCellarItemCommand: CreateCellarItemCommand): String {
-        return commandHandler.createCellarItem(createCellarItemCommand)
+    fun createCellarItem(@RequestBody createCellarItem: CreateCellarItem): String {
+        return commandHandler.createCellarItem(createCellarItem)
     }
 
 }

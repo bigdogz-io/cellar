@@ -1,8 +1,8 @@
 package com.bigdogz.cellar
 
 import com.bigdogz.cellar.endpoint.CompanyView
-import com.bigdogz.cellar.endpoint.CreateCellarItemCommand
-import com.bigdogz.cellar.endpoint.CreateProductCommand
+import com.bigdogz.cellar.endpoint.CreateCellarItem
+import com.bigdogz.cellar.endpoint.CreateProduct
 import com.bigdogz.cellar.endpoint.ProductView
 import com.bigdogz.cellar.service.*
 import junit.framework.Assert.assertEquals
@@ -65,7 +65,7 @@ class CellarApplicationTests(@Autowired val restTemplate: TestRestTemplate,
 
     @Test
     fun `Assert create new product successfully`() {
-        val createProductCommand = CreateProductCommand("Big Beer", ProductType.BEER, "12.5%", CompanyView("123", "Big Company", "Beer company"))
+        val createProductCommand = CreateProduct("Big Beer", ProductType.BEER, "12.5%", CompanyView("123", "Big Company", "Beer company"))
 
         val entity = restTemplate.postForEntity<String>("/product", createProductCommand)
         assertNotNull(entity)
@@ -78,7 +78,7 @@ class CellarApplicationTests(@Autowired val restTemplate: TestRestTemplate,
     fun `Assert create new cellarItem successfully`() {
         val productId = UUID.randomUUID().toString()
         val testProduct = productRepository.save(Product(productId, "Big Beer", ProductType.BEER, "12.5%", Company("322423", "Big Company", "Beer company")))
-        val createProductCommand = CreateCellarItemCommand(UUID.randomUUID().toString(), productId, null)
+        val createProductCommand = CreateCellarItem(UUID.randomUUID().toString(), productId, null)
 
         val entity = restTemplate.postForEntity<String>("/item", createProductCommand)
         assertNotNull(entity)

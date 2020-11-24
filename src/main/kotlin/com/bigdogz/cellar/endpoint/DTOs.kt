@@ -2,7 +2,7 @@ package com.bigdogz.cellar.endpoint
 
 import com.bigdogz.cellar.service.ProductType
 
-class ProductView(
+data class ProductView(
         val id: String? = null,
         val name: String? = null,
         val type: ProductType? = null,
@@ -10,27 +10,27 @@ class ProductView(
         val company: CompanyView? = null
 )
 
-class CompanyView(
+data class CompanyView(
         val id: String? = null,
         val name: String? = null,
         val description: String? = null,
 )
 
-class CellarItemView(
+data class CellarItemView(
         val id: String? = null,
         val userId: String? = null,
         val product: ProductView? = null,
         val notes: String? = null
 )
 
-class CreateProductCommand(
+class CreateProduct(
         val name: String,
         val type: ProductType,
         val abv: String? = null,
         val company: CompanyView
 )
 
-data class CreateCellarItemCommand(
+data class CreateCellarItem(
         val userId: String? = null,
         val productId: String? = null,
         val notes: String? = null

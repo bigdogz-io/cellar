@@ -1,14 +1,14 @@
 package com.bigdogz.cellar.service
 
-import com.bigdogz.cellar.endpoint.CreateCellarItemCommand
-import com.bigdogz.cellar.endpoint.CreateProductCommand
+import com.bigdogz.cellar.endpoint.CreateCellarItem
+import com.bigdogz.cellar.endpoint.CreateProduct
 import lombok.extern.slf4j.Slf4j
 import org.springframework.stereotype.Service
 
 @Slf4j
 @Service
 class CellarCommandHandler(val productRepository: ProductRepository, val cellarItemRepository: CellarItemRepository) {
-    fun createProduct(createProductCommand: CreateProductCommand): String {
+    fun createProduct(createProductCommand: CreateProduct): String {
         val product = productRepository.save(Product(
                 null,
                 createProductCommand.name,
@@ -21,18 +21,18 @@ class CellarCommandHandler(val productRepository: ProductRepository, val cellarI
         return product.id!!
     }
 
-    fun createCellarItem(createCellarItemCommand: CreateCellarItemCommand): String {
-        if (createCellarItemCommand.productId == null) {
+    fun createCellarItem(createCellarItem: CreateCellarItem): String {
+        if (createCellarItem.productId == null) {
             throw RuntimeException("productId cannot be null")
         }
 
-        val product = productRepository.findById(createCellarItemCommand.productId)
+        val product = productRepository.findById(createCellarItem.productId)
 
         val cellarItem = cellarItemRepository.save(CellarItem(
                 null,
-                createCellarItemCommand.userId,
+                createCellarItem.userId,
                 product.orElseThrow(),
-                createCellarItemCommand.notes
+                createCellarItem.notes
 
         ))
         return cellarItem.id!!
