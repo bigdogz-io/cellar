@@ -21,7 +21,7 @@ class CellarCommandHandler(val productRepository: ProductRepository, val cellarI
         return product.id!!
     }
 
-    fun createCellarItem(createCellarItem: CreateCellarItem): String {
+    fun createCellarItem(userId: String, createCellarItem: CreateCellarItem): String {
         if (createCellarItem.productId == null) {
             throw RuntimeException("productId cannot be null")
         }
@@ -30,7 +30,7 @@ class CellarCommandHandler(val productRepository: ProductRepository, val cellarI
 
         val cellarItem = cellarItemRepository.save(CellarItem(
                 null,
-                createCellarItem.userId,
+                userId,
                 product.orElseThrow(),
                 createCellarItem.notes
 

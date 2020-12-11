@@ -31,7 +31,6 @@ class CreateProduct(
 )
 
 data class CreateCellarItem(
-        val userId: String? = null,
         val productId: String? = null,
         val notes: String? = null
 )

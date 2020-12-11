@@ -55,7 +55,7 @@ class CellarApplicationTests(@Autowired val restTemplate: TestRestTemplate,
                 userId,
                 Product(UUID.randomUUID().toString(), "Big Beer", ProductType.WINE, "11.5%", Company("322427", "Wine Company", "Wine company")), ""))
 
-        val entity = restTemplate.getForEntity<List<ProductView>>("/item?userId={userId}", mapOf("userId" to userId))
+        val entity = restTemplate.getForEntity<List<ProductView>>("/cellar/{userId}", mapOf("userId" to userId))
         assertNotNull(entity)
         assertEquals(entity.statusCode, HttpStatus.OK)
         val productViewList = entity.body
@@ -78,9 +78,10 @@ class CellarApplicationTests(@Autowired val restTemplate: TestRestTemplate,
     fun `Assert create new cellarItem successfully`() {
         val productId = UUID.randomUUID().toString()
         val testProduct = productRepository.save(Product(productId, "Big Beer", ProductType.BEER, "12.5%", Company("322423", "Big Company", "Beer company")))
-        val createProductCommand = CreateCellarItem(UUID.randomUUID().toString(), productId, null)
+        val userId = UUID.randomUUID().toString()
+        val createProductCommand = CreateCellarItem(productId, null)
 
-        val entity = restTemplate.postForEntity<String>("/item", createProductCommand)
+        val entity = restTemplate.postForEntity<String>("/cellar/{userId}", createProductCommand, mapOf("userId" to userId))
         assertNotNull(entity)
         assertEquals(entity.statusCode, HttpStatus.OK)
         val cellarItemId = entity.body

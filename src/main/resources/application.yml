@@ -1,0 +1,17 @@
+server:
+  port: 4000
+logging:
+  level:
+    org.springframework.cloud.web: INFO
+    com.bigdogz.cellar: DEBUG
+spring:
+  data:
+    mongodb:
+      auto-index-creation: true
+      uri: ${MONGODB_URI:localhost:27017}
+      authentication-database: admin
+  rabbitmq:
+    host: ${RABBIT_HOST:localhost}
+    username: ${RABBIT_USER:guest}
+    password: ${RABBIT_PASSWORD:guest}
+    virtual-host: ${RABBIT_VHOST:/}

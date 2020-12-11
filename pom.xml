@@ -10,9 +10,7 @@
   </parent>
   <groupId>com.bigdogz</groupId>
   <artifactId>cellar</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>cellar</name>
-  <description>Demo project for Spring Boot</description>
+  <version>0.1.0</version>
 
   <properties>
     <java.version>11</java.version>

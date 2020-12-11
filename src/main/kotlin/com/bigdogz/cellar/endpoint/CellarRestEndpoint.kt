@@ -20,19 +20,21 @@ class CellarRestEndpoint(private var commandHandler: CellarCommandHandler, priva
         return cellarQueryHandler.getProducts(productType)
     }
 
-    @GetMapping("/item")
-    fun getCellarItems(@RequestParam("userId") userId: String): List<CellarItemView> {
-        return cellarQueryHandler.getCellarItems(userId)
-    }
-
     @PostMapping("/product")
     fun createProduct(@RequestBody createProductCommand: CreateProduct): String {
         return commandHandler.createProduct(createProductCommand)
     }
 
-    @PostMapping("/item")
-    fun createCellarItem(@RequestBody createCellarItem: CreateCellarItem): String {
-        return commandHandler.createCellarItem(createCellarItem)
+    @PostMapping("/cellar/{userId}")
+    fun createCellarItem(
+        @PathVariable("userId") userId: String,
+        @RequestBody createCellarItem: CreateCellarItem): String {
+
+        return commandHandler.createCellarItem(userId, createCellarItem)
     }
 
+    @GetMapping("/cellar/{userId}")
+    fun getCellarItems(@PathVariable("userId") userId: String): List<CellarItemView> {
+        return cellarQueryHandler.getCellarItems(userId)
+    }
 }

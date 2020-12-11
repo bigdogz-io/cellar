@@ -1,0 +1,17 @@
+apiVersion: skaffold/v2beta10
+kind: Config
+build:
+  artifacts:
+  - image: docker.io/bigdogz/cellar
+    buildpacks:
+      builder: gcr.io/buildpacks/builder:v1
+  tagPolicy:
+    gitCommit: {}
+  local: {}
+deploy:
+  helm:
+    releases:
+    - name: cellar
+      chartPath: helm/cellar
+      artifactOverrides:
+        image.repository: docker.io/bigdogz/cellar
